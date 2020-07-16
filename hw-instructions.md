@@ -79,12 +79,12 @@ This is a schema for a book site name GoodBooks.  The schema is deficient becaus
 
 The relationships between the entities are:
 
-+ authors have a one to many relationship with books, and books have a one to one relationship with authors.  In other words:
-  * each book has one author (total participation, all books must always have an author)  
++ authors have a one to many relationship with books, and books have a one to one relationship with authors.  In other words:  
+  + each book has one author (total participation, all books must always have an author)  
   + each author has zero or more books  (we can add and keep authors without a book entry)
 + users have a one to many relationship with readinglists, and readinglists have a one to one relationship with users.  In other words:  
-  * each user has zero or more readinglists
-  * each readinglist has one user (total participation, all readinglists must always have a user)
+  + each user has zero or more readinglists
+  + each readinglist has one user (total participation, all readinglists must always have a user)
 + users and books have a many to many relationship through the ratings table.  This table stores user ratings for books.  Both users and books can have zero ratings.
 
 Some notes about tables in Rails:
@@ -92,7 +92,7 @@ Some notes about tables in Rails:
 
 1. Rails wants the primary key to be named `id` for entity sets.  The norm is for this to be an autoincrementing column.  There is a gem `composite_primary_keys` to support using composite primary keys, but in general when it makes sense for entities, we should stick with the `id`.  
 
-1. When we have foreign keys, Rails will name them with the singular of the foriegn table name with an `_id` suffix.
+1. When we have foreign keys, Rails will name them with the singular of the foreign table name with an `_id` suffix.
 
 1. Relationship sets, also known as join tables in Rails, are typically named by joining the two table names with an underscore and ordering them alphabetically.  For example, books_readinglists.  We don't have to do that, for example, ratings.
 
@@ -133,7 +133,7 @@ Rails.application.configure do
 end
 ```
 
-Then `CTRL-C` your web server, and start it up again and make you do get "Yay! You're on Rails!".  This is a good time to commit and push to GitHub.
+Then `CTRL-C` your web server, and start it up again and make sure you do get "Yay! You're on Rails!".  This is a good time to commit and push to GitHub.
 
 #### Our first table and model
 
@@ -143,7 +143,7 @@ We will want to create an `Author` model, and its corresponding table `authors` 
 
 For `authors`, we only have the `name` attribute, and the `:string` data type is appropriate.  The various books referenced above go into detail about how each datatype is mapped to specific datatypes in each different database. 
 
-We will generate the model `Author` and a migration for the table `authors` with a `name` attribute of type `string` the following command:
+We will generate the model `Author` and a migration for the table `authors` with a `name` attribute of type `string` using the following command:
 
 ```
 rails generate model Author name:string
@@ -277,7 +277,7 @@ What will be the rails command to generate the User model and users table?
 rails generate model User name:string email:string
 ```
 
-**Task:** Edit the generate migration to limit the size of `name` to 70 characters, and `email` to 255 characters.  Also edit the migration so that neither `name` nor `email` can be null.  Run your migration and verify the correct construction of your users table by using psql.
+**Task:** Edit the generated migration to limit the size of `name` to 70 characters, and `email` to 255 characters.  Also edit the migration so that neither `name` nor `email` can be null.  Run your migration and verify the correct construction of your users table by using psql.
 
 Your table should like like this in psql:
 
@@ -372,7 +372,7 @@ Foreign-key constraints:
 
 We nicely see the `author_id` is a FK referencing authors(id).  If we also do `\d authors`, we see that `authors` knows it is referenced by `books`.
 
-Sometimes we want to delete all records that depend on a foreign key when we delete an item from the database.  For example, if you delete and author, you could have all books with that author automatically deleted for you if the foreign key was marked to `ON DELETE CASCADE`.  At the moment, the foreign key will prevent us from deleting an author until we also delete all the books that depend on it.  Given that for this database, it is likely a mistake to get rid of books, we will not set up a cascading delete.  Most likely someone would mistakenly delete an author when what they really wanted to do was update it with a new spelling.  See the [manual](https://api.rubyonrails.org/v6.0.3.2/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html#method-i-add_foreign_key) for options.
+Sometimes we want to delete all records that depend on a foreign key when we delete an item from the database.  For example, if you delete an author, you could have all books with that author automatically deleted for you if the foreign key was marked to `ON DELETE CASCADE`.  At the moment, the foreign key will prevent us from deleting an author until we also delete all the books that depend on it.  Given that for this database, it is likely a mistake to get rid of books, we will not set up a cascading delete.  Most likely someone would mistakenly delete an author when what they really wanted to do was update it with a new spelling.  See the [manual](https://api.rubyonrails.org/v6.0.3.2/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html#method-i-add_foreign_key) for options.
 
 **Task:** Generate the model and migration for readinglists.  The relation is: readinglists ( id (PK), name, user_id (FK) ) .  The `name` attribute should be a string with a limit of 100 characters and cannot be null.  Run the migration and verify that you created it correctly with psql.
 
@@ -403,7 +403,7 @@ books_readinglists ( book_id (PK, FK), readinglist_id (PK, FK) )
 
 is in Rails terms, a "join table" where we have a many to many relationship between books and readinglists.  
 
-This relationship set has no extra attributes beside the foreign keys, and thus there is no Rail model to go along with it.  We will only be using it to connect two models: books and readinglists.  
+This relationship set has no extra attributes beside the foreign keys, and thus there is no Rails model to go along with it.  We will only be using it to connect two models: books and readinglists.  
 
 Thus, we only want to generate a migration and not a model, too.
 
@@ -709,7 +709,7 @@ Have you committed and pushed your code to GitHub recently?  Commit early and of
 
 1. Add a method named `num_readinglists` to the Book model that returns the number of reading lists the book is found on.
 
-1. Add a method named `favorite_book` to the User model that returns a user's favorite book based on their ratings.  The item returned should be a Book object and not an ActiveRecord::Relation.
+1. Add a method named `favorite_book` to the User model that returns a user's favorite book based on their ratings.  The item returned should be a Book object and not an ActiveRecord::Relation.  If a user has no ratings, return nil.
 
 1. Add a method named `books_in_common` to the User model that takes as input the id of another user and returns an array of Book objects that both users have given positive ratings to.  If the two users have no such books in common, return an empty array.
 
@@ -717,7 +717,7 @@ Have you committed and pushed your code to GitHub recently?  Commit early and of
 
 ## Schema Addition
 
-**Task:** Update the schema via migration(s) to allow users to write reviews of books.  A review may be up to 1024 characters long.  Each review must be associated with the user that wrote the review and the book that the review is about.  Reviews may not be null.  A user may write at most one review for a book.  A book may be reviewed by zero or more users.  Update the models for User and Book to include the appropriate associations.  Include the appropriate foreign key constraints in the database. 
+**Task:** Update the schema via migration(s) to allow users to write reviews of books.  A review may be up to 1024 characters long.  Each review must be associated with the user that wrote the review and the book that the review is about.  Reviews may not be null.  A user may write at most one review for a book.  A book may be reviewed by zero or more users.  Update the models for User and Book to include the appropriate associations.  Include the appropriate foreign key constraints in the database. Reviews are separate from ratings.  You should not modify the ratings table.
 
 # Submit Your Work
 
