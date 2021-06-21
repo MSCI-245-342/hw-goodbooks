@@ -88,7 +88,7 @@ The relationships between the entities are:
 + users and books have a many to many relationship through the ratings table.  This table stores user ratings for books.  Both users and books can have zero ratings.
 
 Some notes about tables in Rails:
-1. We name our entities using the plural rather than singular.  The model that is associate with an entity set, is the singular form of the plural used for the table.  Thus, we will have a books entity set (table) in the database, and a Book model.  Each Book object will represent one row in the books table.
+1. We name our entities using the plural rather than singular.  The model that is associated with an entity set, is the singular form of the plural used for the table.  Thus, we will have a books entity set (table) in the database, and a Book model.  Each Book object will represent one row in the books table.
 
 1. Rails wants the primary key to be named `id` for entity sets.  The norm is for this to be an autoincrementing column.  There is a gem `composite_primary_keys` to support using composite primary keys, but in general when it makes sense for entities, we should stick with the `id`.  
 
