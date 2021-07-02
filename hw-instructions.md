@@ -997,7 +997,7 @@ Have you committed and pushed your code to GitHub recently?  Commit early and of
 
 1. Add a method named `fans` to the Book model that returns a collection of users who have rated the book a 5.  If there are no fans, the collection should be empty.  Both an ActiveRecord_Relation and an Array are collections.  Many ActiveRecord methods return a relation, and some, such as `find_by_sql` return an array.  With either type of collection, it is possible to iterate through the results returned by your `fans` method and get `User` objects.
 
-1. Add a method named `favorite_book` to the User model that returns a user's favorite book based on their ratings such that a favorite book must be rated at least a 3.  The item returned should be a Book object and not an ActiveRecord::Relation.  If a user has no ratings, or no books rated 3 or above, return nil.
+1. Add a method named `favorite_books` to the User model that returns a collection of a user's favorite books.  A user's favorite books are the books they have given the highest rating to such that a favorite book must be rated at least a 3.  All of a user's favorite books will have the same rating, and it is the highest rating they've given a user.  If a user has no ratings, or no books rated 3 or above, return an empty collection.  See the explanation of a collection for the `fans` method above.
 
 1. Add a method named `books_in_common` to the User model that takes as input the id of another user and returns a collection of Book objects that both users have given ratings > 0 to.  If the two users have no such books in common, return an empty collection.  See the explanation of a collection for the `fans` method above.
 
