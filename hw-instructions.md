@@ -1,4 +1,4 @@
-# hw-schema-and-models
+# GoodBooks
 
 Author: Mark Smucker  
 Date: July 2021 (updated from 2020 to be correct for Rails 6.1, Ruby 3, and Postgresql 13 as well as other improvements)
