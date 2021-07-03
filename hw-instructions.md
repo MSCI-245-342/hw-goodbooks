@@ -67,7 +67,7 @@ When we are creating the database, we need to think about the order in which to 
 
 #### Migrations and Production and "Starting Over"
 
-Once we've deployed our system to production (Heroku), and a customer has started using the system, the production database will have real customer data in it.  We cannot simply rollback migrations on the production server, nor can we simply delete the database and and start over.  
+Once we've deployed our system to production (Heroku), and a customer has started using the system, the production database will have real customer data in it.  We cannot simply rollback migrations on the production server, nor can we simply delete the database and start over.  
 
 In production, if we want to change an existing and in-use database, we write additional migrations to modify the database in a manner to not lose data.  The [course texbook](http://www.saasbook.info/) describes how this is done in Section 12.4, "Releases and Feature Flags".  
 
