@@ -19,7 +19,7 @@ To build web apps, you need to learn the ORM of Rails, which largely means learn
 
 ### Reference Materials
 
-This homework is not a replacement for written documentation and tutorials.  Besides the course textbook, you will find the following helpful.  When viewing online document, pay attention to the version of the documentation.  What works in one version of Rails may not work in your version.  MSCI 245 and 342 currently use Rails 6.
+This homework is not a replacement for written documentation and tutorials.  Besides the course textbook, you will find the following helpful.  When viewing online documentation, pay attention to the version of the documentation.  What works in one version of Rails may not work in your version.  MSCI 245 and 342 currently use Rails 6.
 
 1. Guide: [Active Record Basics](https://guides.rubyonrails.org/active_record_basics.html)
 
