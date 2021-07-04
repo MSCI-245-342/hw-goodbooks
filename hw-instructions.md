@@ -1001,7 +1001,7 @@ Have you committed and pushed your code to GitHub recently?  Commit early and of
 
 1. Add a method named `books_in_common` to the User model that takes as input the id of another user and returns a collection of Book objects that both users have given ratings > 0 to.  If the two users have no such books in common, return an empty collection.  See the explanation of a collection for the `fans` method above.
 
-1. Add a method named `most_liked_book` to the Author model that returns a Book object for the author's book with the highest average rating.  If an author has no books rated, return nil. If multiple books have the same highest average rating, the book with more ratings should be returned. 
+1. Add a method named `most_liked_book` to the Author model that returns a Book object for the author's book with the highest average rating.  If an author has no books rated, return nil. If multiple books have the same highest average rating, the book with more ratings should be returned.  If more than one book has the same highest average rating and the same number of ratings, then of these books, the book with the lowest `id` is returned.
 
 ## Schema Addition
 
