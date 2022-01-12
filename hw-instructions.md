@@ -433,7 +433,7 @@ is close to what we want.  We also want the year and title attributes to not be 
 Once updated, the migration looks like:
 
 ```ruby
-class CreateBooks < ActiveRecord::Migration[6.0]
+class CreateBooks < ActiveRecord::Migration[6.1]
   def change
     create_table :books do |t|
       t.string :title, limit: 255, null: false
